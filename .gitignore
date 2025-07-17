@@ -207,4 +207,6 @@ marimo/_lsp/
 __marimo__/
 
 # manual
-__pycache__
+__pycache__/
+.vscode/
+.venv/
