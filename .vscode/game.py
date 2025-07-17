@@ -19,4 +19,5 @@ def random_predict(number:int=1) -> int:
             break # выход из цикла, если угадали
     return(count)
 
-print(f'Количество попыток: {random_predict()}')
+if __name__ == '__main__':
+    print(f'Количество попыток: {random_predict()}')
