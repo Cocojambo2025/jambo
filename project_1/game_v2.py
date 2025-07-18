@@ -2,9 +2,10 @@
 Компьютер сам загадывает и сам угадывает число
 """
 
+# Имполртируем библиотеку Numpy
 import numpy as np
 
-
+# Описываем функцию отгадывающую поданное на нее число
 def limits_predict(number: int = 1) -> int:
     """Угадываем число с помощью сжатия границ поиска и исключения повторных предположений
 
@@ -14,63 +15,94 @@ def limits_predict(number: int = 1) -> int:
     Returns:
         int: Число попыток
     """
+    # Инициируем счетчик поыток
     count = 0
-
+    # Задаем нижнюю границу
     low_limit = 1
+    # Задаем верхнюю границу
     up_limit = 101
+    # Инициируем список для хранения предположений
     predict_list = []
+    
+    #Запускаем бесконечный цикл
     while True:
+        # Увеличиваем значение счетчика
         count += 1
-        x = np.random.randint(low_limit, up_limit)
+        # Делаеем предположение загаданного числа
+        random_value = np.random.randint(low_limit, up_limit)
         
-        while x in predict_list:
-            x = np.random.randint(low_limit, up_limit)
-        predict_number = x
+        # Для отсеивания повторений предположений
+        # Запускае цикл по значениям с списке предположений
+        # Выполняем цикл, если предположение есть в словаре
+        while random_value in predict_list:
+            # Делаем новое предположение
+            random_value = np.random.randint(low_limit, up_limit)
+        # Фиксируем свежее предположение
+        predict_number = random_value
         
+        # Если чило угадано
         if number == predict_number:
             break  # выход из цикла если угадали
         
+        # Если предположение меньше загаднного числа
         if number > predict_number:
+            # Сдвигаем нижнюю границу вверх на предположенное число
             low_limit = predict_number
-            
+        
+        # Если предположение больше загаданного числа
         if number < predict_number:
+            # Сдвигаем верхнюю границу вниз на предположенное число
             up_limit = predict_number
         
+        # Добавляем предположение в список
         predict_list.append (predict_number)
-              
+    
+    # возвращам колчество попыток
     return count
 
-
+# Описывем функцию самой игры
 def score_game(limits_predict) -> int:
-    """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
+    """За какое количство попыток в среднем за 2000 подходов угадывает наш алгоритм
 
     Args:
-        random_predict ([type]): функция угадывания
+        limits_predict ([type]): функция угадывания
 
     Returns:
         int: среднее количество попыток
     """
+    # Инициируем список успешных попытк
     count_ls = []
-    #np.random.seed(1)  # фиксируем сид для воспроизводимости
-    random_array = np.random.randint(1, 101, size=(2000))  # загадали список чисел
+    
+    # загадали список чисел
+    random_array = np.random.randint(1, 101, size=(2000))  
 
+    # запускаем цикл для каждого загаданного числа из списка чисел
     for number in random_array:
+        # Добавдяем количество попыток в список успешных попыток
         count_ls.append(limits_predict(number))
 
-    score = int(np.mean(count_ls))
+    score = int(np.mean(count_ls)) #вычисляем среднее значения
    
+    # Выводим значение среднего колчества успешных попыток
     print(f"Ваш алгоритм угадывает число в среднем за: {score} попыток при совершении 2000 подходов")
     
-    
+    # В качестве бонуса рисуем график ромального распределения попыток
+    # Подключаем бибилотеку matplotlib.pyplot
     import matplotlib.pyplot as plt
     
+    # Сортируем список успешных попыток по возрастанию
     count_ls.sort()
+    # Получаем список уникальных значений успешных попыток
     points_list=list(set(count_ls))
+    # Инициируем список количеств успешных попыток
     hight_list =[]
+    
+    # Запускаем цикл для каждого елемента списка значений успешных попыток
     for elem in points_list:
+        #Добавляем в список количество успешных попыток с конкретным значение
          hight_list.append(count_ls.count(elem))
     
-  
+    #Рисуем график нормального распределения успешных попыток
     plt.bar(points_list, hight_list, label='успешных попыток')
     plt.xlabel('Число итераций до угадывания')
     plt.ylabel('Количество успешных попыток')
@@ -78,10 +110,11 @@ def score_game(limits_predict) -> int:
     plt.legend()
     plt.show()
     
+    # Возвращаем значение среднего количества попыток
     return score
 
 
-# RUN
+# RUN только в случае непосредственного запуска
 if __name__ == "__main__":
     score_game(limits_predict)
 
