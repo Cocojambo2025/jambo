@@ -17,6 +17,8 @@
 ### Дополнительные ресурсы    
 Ссылка на датасет: https://disk.yandex.ru/d/gtn_WAHpNRhy9g
 
+Сам проект: [Project-1._Ноутбук-шаблон.ipynb](Project-1._Ноутбук-шаблон.ipynb)
+
 :arrow_up:[к оглавлению](README.md#Оглавление)
 
 
