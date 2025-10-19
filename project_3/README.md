@@ -17,7 +17,7 @@
 
 ### Проект    
 
-Сам проект: [Project-1._Ноутбук-шаблон.ipynb](Project-1._Ноутбук-шаблон.ipynb)
+Сам проект: [Project_2_done.ipynb](Project_2_done.ipynb)
 
 :arrow_up:[к оглавлению](README.md#Оглавление)
 
